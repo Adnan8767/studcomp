@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Registration</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" type="text/css" href="nav.css">
+	<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+ <script type="text/javascript" src="jquery-1.3.2.js"> </script>
+
+<style>
+body{
+	color: #fff;
+	background: #000;
+	font-family: 'Roboto', sans-serif;
+}
+.form-control {
+	height: 41px;
+	background: #f2f2f2;
+	box-shadow: none !important;
+	border: none;
+}
+.form-control:focus {
+	background: #e2e2e2;
+}
+.form-control, .btn {        
+	border-radius: 3px;
+}
+.signup-form {
+	width: 400px;
+	margin: 30px auto;
+}
+.signup-form form {
+	color: #999;
+	border-radius: 3px;
+	margin-bottom: 15px;
+	background: #fff;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	padding: 30px;
+}
+.signup-form h2  {
+	color: #333;
+	font-weight: bold;
+	margin-top: 0;
+}
+.signup-form hr  {
+	margin: 0 -30px 20px;
+}    
+.signup-form .form-group {
+	margin-bottom: 20px;
+}
+.signup-form input[type="checkbox"] {
+	margin-top: 3px;
+}
+.signup-form .row div:first-child {
+	padding-right: 10px;
+}
+.signup-form .row div:last-child {
+	padding-left: 10px;
+}
+.signup-form .btn {        
+	font-size: 16px;
+	font-weight: bold;
+	background: #3598dc;
+	border: none;
+	min-width: 140px;
+	margin-top:0px;
+}
+.signup-form .btn:hover, .signup-form .btn:focus {
+	background: #2389cd !important;
+	outline: none;
+}
+.signup-form a {
+	color: #fff;
+	text-decoration: underline;
+}
+.signup-form a:hover {
+	text-decoration: none;
+}
+.signup-form form a {
+	color: #3598dc;
+	text-decoration: none;
+}	
+.signup-form form a:hover {
+	text-decoration: underline;
+}
+.signup-form .hint-text  {
+	padding-bottom: 15px;
+	text-align: center;
+}
+.passwd~i{
+	display: inline-block;
+	position:relative;
+	top:-33px;
+	left:90%;
+}
+#alertt{
+visibility: hidden;
+}
+.loader {
+	visibility: hidden;
+	position: absolute;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  left: 45%;
+  top:40%;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  z-index: 6;
+}
+#olay{
+	visibility: hidden;
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	width:100%;
+	height: 100%;
+	background:rgba(0,0,0,0.7);
+	z-index: 5;
+}
+.loader~span{
+	display: inline-block;
+	position: absolute;
+	visibility: hidden;
+	z-index: 6;
+	color:white;
+	left: 44%;
+	top:64%;
+	font-family: 'Roboto', sans-serif;
+	font-size: 26px;
+}
+#i2{
+	margin-bottom: 5px;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+	<div class="alert alert-danger" role="alert" id="alertt">
+</div>
+<div class="text-center">
+ <div class="loader">
+ </div>
+ <span id="lmsg">sending otp</span>
+</div>
+<div class="signup-form">
+    <form action="confirmation.php" method="post" id="form1">
+		<h2>Sign Up</h2>
+		<p>Please fill in this form to create an account!</p>
+		<hr>
+        <div class="form-group">
+			<div class="row">
+				<div class="col"><input type="text" class="form-control" name="name" placeholder="Name" required="required"></div>
+				
+			</div>        	
+        </div>
+        <div class="form-group">
+        	<input type="email" class="form-control" id="emaill" name="email" placeholder="Email" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control passwd" name="password" placeholder="Password" required="required">
+            <i class="fa fa-eye"></i>
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control passwd" name="confirm_password" placeholder="Confirm Password" required="required">
+            <i class="fa fa-eye" id="i2"></i>
+        </div>        
+       
+		<div class="form-group text-center">
+      <button type="submit" class="btn btn-primary btn-lg submit" id="submitt">Sign Up</button>
+        </div>
+        <div class="hint-text">Already have an account? <a href="login.php" id="aa">Login here</a></div>
+</div>
+    </form>
+	
+<div id="olay">
+	</div>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src='js/TableToJson.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="jquery-XXX.js"></script>
+    <script src="jquery.redirect.js"></script>
+<script type="text/javascript">
+
+function vv()
+{
+var email = $("#emaill").val();
+ $.ajax({
+            type: "POST",
+            data: {email:email},
+            url: "userexist.php",
+            success: function(data){
+               //data will contain the vote count echoed by the controller i.e.  
+              if(data ==="exists")
+                 {
+                 	$('#form1').trigger("reset");
+                 	$("#alertt").html("User already exists");
+                 	$("#alertt").css("visibility","hidden");
+    				$("#alertt").css("visibility","visible");
+                 }
+                 else if(data==="de"){
+                 		$("#form1").submit();
+                 }
+           
+              //then append the result where ever you want like
+              //data will be containing the vote count which you have echoed from the controller
+             
+                }
+            });
+}
+
+
+
+$("#submitt").on('click',function(event)
+    {
+    	event.preventDefault();
+    	var p1 = $(".passwd")[0].value;
+    	var p2 = $(".passwd")[1].value;
+
+    	//check if password fields are empty
+    	if(p1!="" && p2!="" && p1==p2)
+    	{
+    		//check if user already exists
+    		vv();
+    	}
+
+    	//if all entered details are not ok then show error message
+    	else{
+    		$('#form1').trigger("reset");
+    		$("#alertt").html("Invalid details , Try again");
+    		$("#alertt").css("visibility","visible");
+    	}
+
+    });
+
+
+	//Ready function
+		//Function for eye button in password field
+    $("i").on('click', function(event) {
+        event.preventDefault();
+        var elm = $(this).siblings(".passwd")
+        if(elm.attr("type") == "text"){
+            elm.attr('type', 'password');
+             elm.next("i").removeClass( "fa-eye-slash" );
+           	elm.next("i").addClass( "fa-eye" );
+           
+        }else if(elm.attr("type") == "password"){
+            elm.attr('type', 'text');
+            elm.next("i").removeClass( "fa-eye" );
+         	elm.next("i").addClass( "fa-eye-slash" );
+        }
+    });
+
+    //Function on submit button click
+    
+
+    //make loader to appear on submission of form
+    $('#form1').submit(function() {
+    $("#alertt").css("visibility","hidden");
+    $('.loader').css('visibility', 'visible');
+    $('#olay').css("visibility","visible");
+    $("#lmsg").css("visibility","visible");
+});
+
+    //function to show loader on click of login link
+    $("#aa").on('click',function(e)
+    {
+    	e.preventDefault();
+   		$('.loader').css('visibility', 'visible');
+    	$('#olay').css("visibility","visible");
+    	$.redirect('load.php', {'loc':'login.php'});
+    });
+	//end
+</script>
+</body>
+</html>

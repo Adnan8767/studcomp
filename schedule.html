@@ -1,0 +1,350 @@
+<?php
+session_start();
+if(!isset($_SESSION["userid"]) || $_SESSION["user"]!==true)
+{
+  header("Location:login.php");
+  exit;
+}
+?>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="nav.css">
+	<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<style type="text/css">
+	.schead{
+		display: block;
+		margin-left:-105px;
+	}
+	.listt{
+		margin: 30px;
+	}
+
+body {
+  background: #ff7e5f;
+  background: -webkit-linear-gradient(to right, #ff7e5f, #feb47b);
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  min-height: 100vh;
+}
+
+.rounded-lg {
+  border-radius: 1rem;
+}
+
+.text-gray {
+  color: #aaa;
+}
+
+div.h4 {
+  line-height: 1rem;
+}
+.progress {
+  width: 150px;
+  height: 150px;
+  background: none;
+  position: relative;
+}
+
+.progress::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid #eee;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progress>span {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.progress .progress-left {
+  left: 0;
+}
+
+.progress .progress-bar {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border-width: 6px;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+}
+
+.progress .progress-left .progress-bar {
+  left: 100%;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border-left: 0;
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+}
+
+.progress .progress-right {
+  right: 0;
+}
+
+.progress .progress-right .progress-bar {
+  left: -100%;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-right: 0;
+  -webkit-transform-origin: center right;
+  transform-origin: center right;
+}
+
+.progress .progress-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#fp{
+	margin-bottom:80px;
+}
+.dessc{
+  color:white;
+}
+
+	@media screen and (max-width: 992px) {
+		.schead{
+			margin-left: 0;
+		}
+	}
+</style>
+</head>
+<body>
+  <!--Navbar design-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container">
+   <div class="logo">
+      	<a href="index.html">
+      		<img src="logo.png" alt=" ">
+      		Studcomp
+      	</a>
+</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar end -->
+
+<!-- Content start-->
+<div class="card">
+  <!--Heading-->
+  <h3 class=" schead card-header text-center font-weight-bold py-4">Today's  Schedule</h3>
+
+  <!--Buttons row-->
+  <div class="card-body container text-center">
+  	<div class="row d-flex justify-content-center">
+
+      <!--Add to schedule button-->
+      <span class="col-sm-12 col-lg-3 col-xl-3 mb-3"><button type="button" class="btn btn-success" onclick="addsch()"><i class="fa fa-plus"></i> &nbsp; Add to schedule</button></span>
+      
+       <!--Date button-->
+       <span class=" col-sm-12 col-lg-3 col-xl-3 mb-3"><button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i> &nbsp;13/04/2021</button></span>
+
+       <!--Remove from schedule button-->
+      <span class="col-sm-12 col-lg-4 col-xl-4 mb-3"><button type="button" class="btn btn-danger" onclick="shdial()"><i class="fa fa-trash"></i> &nbsp; Remove from schedule</button></span>
+    </div>
+  </div>
+</div>
+<!-- Button row end-->
+
+<!--Schedule list start -->
+<div class="card-body container content">
+	<div class="row p-4" id="roww">
+		<div class=" listt col-sm-12 col-lg-5 col-xl-5 bg-primary p-4">
+			<h2 class=" float-left" contenteditable="true">Title</h2>
+			<span> <h3 class="far fa-bell float-right"></h3></span>
+			<br>
+			<br>
+			<span class="float-left" contenteditable="true" class="dessc">
+			Description
+		</span>
+		</div>
+		<!--Schedule list end-->
+		
+
+    <!--Progress bar starts-->
+		<div class="container py-5">
+  <div class="row d-flex justify-content-center">
+
+    <!-- For demo purpose -->
+    <div class="col-lg-12 mx-auto mb-5 text-white text-center">
+      <h1 class="display-4">Student Performance Progress Bar </h1>
+     
+      </p>
+    </div>
+    <!-- END -->
+
+    <div class="col-xl-6 col-lg-6" id="fp">
+      <div class="bg-white rounded-lg p-5 shadow">
+        <h2 class="h6 font-weight-bold text-center mb-4">Overall progress</h2>
+
+        <!-- Progress bar 1 -->
+        <div class="progress mx-auto" data-value='80'>
+          <span class="progress-left">
+                        <span class="progress-bar border-primary"></span>
+          </span>
+          <span class="progress-right">
+                        <span class="progress-bar border-primary"></span>
+          </span>
+          <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+            <div class="h2 font-weight-bold">80<sup class="small">%</sup></div>
+          </div>
+        </div>
+        <!-- END -->
+        </div>
+    </div>
+    <div class="col-xl-7 col-lg-6 mb-4">
+      <div class="bg-white rounded-lg p-5 shadow">
+        <h2 class="h6 font-weight-bold text-center mb-4">Today's Progress</h2>
+
+        <!-- Progress bar 4 -->
+        <div class="progress mx-auto" data-value='12'>
+          <span class="progress-left">
+                        <span class="progress-bar border-warning"></span>
+          </span>
+          <span class="progress-right">
+                        <span class="progress-bar border-warning"></span>
+          </span>
+          <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+            <div class="h2 font-weight-bold">12<sup class="small">%</sup></div>
+          </div>
+        </div>
+        <!-- END -->
+
+        <!-- Demo info -->
+        <div class="row text-center mt-4">
+          <div class="col-6 border-right">
+            <div class="h4 font-weight-bold mb-0">28%</div><span class="small text-gray">Last week</span>
+          </div>
+          <div class="col-6">
+            <div class="h4 font-weight-bold mb-0">60%</div><span class="small text-gray">Last month</span>
+          </div>
+        </div>
+        <!-- END -->
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	</div>
+  <!--Progress bar end-->
+
+
+	<div class="modal"  role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script starts-->
+	<script type="text/javascript">
+
+  //Add to schedule function
+		function addsch()
+		{
+			var obj = document.createElement("div");
+			obj.setAttribute("class","listt col-sm-12 col-lg-5 col-xl-5 bg-primary text-white p-4");
+			obj.innerHTML = "<h2 class='float-left'>Title</h2><span> <h3 class='far fa-bell float-right'></h3></span><br><br><span class = 'float-left'>Description</span>"
+			document.getElementById("roww").appendChild(obj);
+
+		}
+
+
+    //Progress bar value adder function
+		$(function() {
+
+  $(".progress").each(function() {
+
+    var value = $(this).attr('data-value');
+    var left = $(this).find('.progress-left .progress-bar');
+    var right = $(this).find('.progress-right .progress-bar');
+
+    if (value > 0) {
+      if (value <= 50) {
+        right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+      } else {
+        right.css('transform', 'rotate(180deg)')
+        left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+      }
+    }
+
+  })
+
+
+//Function to convert percentage to degrees
+  function percentageToDegrees(percentage) {
+
+    return percentage / 100 * 360
+
+  }
+
+});
+		function shdial()
+		{
+			document.getElementByClassName("modal")[0].style.display = "block";
+		}
+	
+	</script>
+</body>
+</html>

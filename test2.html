@@ -1,0 +1,24 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <script type="text/javascript" src="jquery-1.3.2.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#login').submit(function(e){
+                    // prevent form submit, so we can do a manual one
+                    e.preventDefault();
+                    var username = $('#user').val();
+                    $.post('test.php', {user:username}, function(return_data){
+                        alert(return_data.message);
+                    },'json');
+                });
+            });
+        </script>
+        <form id="login" action="" method="post">
+            <label for="user">Username:</label>
+            <input type="text" id="user">
+            <input type="submit" id="submit" value="submit">
+        </form>
+    </body>
+</html>
